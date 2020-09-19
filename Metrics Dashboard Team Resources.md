@@ -58,7 +58,7 @@
 
 ---
 
-## Other/ Extra/ For the Glory
+## Other/ Extra/ For the Glory Resources List
 
 | Name                       | Description                                 | URL                                                         |
 |----------------------------|---------------------------------------------|-------------------------------------------------------------|
