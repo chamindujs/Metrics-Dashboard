@@ -33,3 +33,25 @@
 | DB Browser                                                               | Database Browsing Software          | [https://sqlitebrowser.org/](https://sqlitebrowser.org/)                                       |
 
 ---
+
+## Front-End Specific Resources List
+
+| Name                     | Description       | URL                                                          |
+|--------------------------|-------------------|--------------------------------------------------------------|
+| Chart JS Overview        | Description       | [https://www.chartjs.org/](https://www.chartjs.org/)         |
+| Introduction to Flask    | Learning Resource | [https://tinyurl.com/y6tx74py](https://tinyurl.com/y6tx74py) |
+| Flask Framework Examples | Learning Resource | [https://tinyurl.com/y6bjgavb](https://tinyurl.com/y6bjgavb) |
+| HTML Examples            | Learning Resource | [https://tinyurl.com/y5c7d38o](https://tinyurl.com/y5c7d38o) |
+| Python Examples          | Learning Resource | [https://tinyurl.com/y44ctzjz](https://tinyurl.com/y44ctzjz) |
+| JavaScript Examples      | Learning Resource | [https://tinyurl.com/yyyzwgnd](https://tinyurl.com/yyyzwgnd) |
+| CSS Examples             | Learning Resource | [https://tinyurl.com/yxd79gj8](https://tinyurl.com/yxd79gj8) |
+
+---
+
+## Back-End Specific Resources List
+
+| Name                                                               | Description                 | URL                                                          |
+|--------------------------------------------------------------------|-----------------------------|--------------------------------------------------------------|
+| Docker Download Page                                               | Container Software          | [https://tinyurl.com/y5tkxefl](https://tinyurl.com/y5tkxefl) |
+| You need to learn Docker RIGHT NOW!! // Docker ontainers 101       | Introduction to Docker Video| [https://tinyurl.com/y5sazt86](https://tinyurl.com/y5sazt86) |
+| Docker Linux Install Script                                        | Docker Linux Installer      | [https://tinyurl.com/y6zmj8bk](https://tinyurl.com/y6zmj8bk) |
