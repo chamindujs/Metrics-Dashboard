@@ -8,10 +8,10 @@
 
 ## Table of Contents
 
-* [_**General Resources List**_](general-resource-list)
-* [_**Front-End Specific Resources List**_](front-end-specific-resources-list)
-* [_**Back-End Specific Resources List**_](back-end-specific-resources-list)
-* [_**Other/ Extra/ For the Glory Resources List**_](other-extra-for-the-glory-resources-list)
+* [_**General Resources List**_](#general-resource-list)
+* [_**Front-End Specific Resources List**_](#front-end-specific-resources-list)
+* [_**Back-End Specific Resources List**_](#back-end-specific-resources-list)
+* [_**Other/ Extra/ For the Glory Resources List**_](#other-extra-for-the-glory-resources-list)
 
 ---
 
