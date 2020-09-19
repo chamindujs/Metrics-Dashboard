@@ -17,17 +17,19 @@
 
 ## General Resource List
 
-|Name                        | Description               | URL                                                                    |
-|----------------------------|---------------------------|------------------------------------------------------------------------|
-| Python 3 Donwload Page     | Main Programming Language | [https://www.python.org/downloads/](https://www.python.org/downloads/) |
-| Git Software Page          | VC Software               | [https://git-scm.com](https://git-scm.com)                             |
-| GitHub                     | Online VCS                | [https://github.com/](https://github.com/)                             |
-| Travis CI                  | CI/ CD Software           |
-| Metrics Dashboard Overview | Project Overview
-| Git and GitHub for Poets   | Git/ GitHub Tutorial
-| CircleCI Part 1: Introduction to Unit Testing and Continuous Integration | CI/ CD Overview
-| Pip | Python package manager
-| Metrics Dashboard Setup Playlist | Videos to help you install software
-| GitHub SSH Keygen | Getting SSH working with GitHub
-| Metrics Dashboard Repository | Main release code
-| DB Browser | Software
+|Name                        | Description                                 | URL                                                                    |
+|--------------------------------------------------------------------------|---------------------------          |------------------------------------------------------------------------|
+| Python 3 Donwload Page                                                   | Main Programming Language           | [https://www.python.org/downloads/](https://www.python.org/downloads/) |
+| Git Software Page                                                        | VC Software                         | [https://git-scm.com](https://git-scm.com)                             |
+| GitHub                                                                   | Online VCS                          | [https://github.com/](https://github.com/)                             |
+| Travis CI                                                                | CI/ CD Software                     |
+| Metrics Dashboard Overview                                               | Project Overview                    |
+| Git and GitHub for Poets                                                 | Git/ GitHub Tutorial                |
+| CircleCI Part 1: Introduction to Unit Testing and Continuous Integration | CI/ CD Overview                     |
+| Pip                                                                      | Python package manager              |
+| Metrics Dashboard Setup Playlist                                         | Videos to help you install software |
+| GitHub SSH Keygen                                                        | Getting SSH working with GitHub     |
+| Metrics Dashboard Repository                                             | Main release code                   |
+| DB Browser                                                               | Software                            |
+
+---
