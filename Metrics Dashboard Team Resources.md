@@ -55,3 +55,12 @@
 | Docker Download Page                                               | Container Software          | [https://tinyurl.com/y5tkxefl](https://tinyurl.com/y5tkxefl) |
 | You need to learn Docker RIGHT NOW!! // Docker ontainers 101       | Introduction to Docker Video| [https://tinyurl.com/y5sazt86](https://tinyurl.com/y5sazt86) |
 | Docker Linux Install Script                                        | Docker Linux Installer      | [https://tinyurl.com/y6zmj8bk](https://tinyurl.com/y6zmj8bk) |
+
+---
+
+## Other/ Extra/ For the Glory
+
+| Name                       | Description                                 | URL                                                         |
+|----------------------------|---------------------------------------------|-------------------------------------------------------------|
+| Free-CS-Education          | Websites to assist you in developing        |[https://tinyurl.com/y2vozmw7](https://tinyurl.com/y2vozmw7) |
+| Computer Science Textbooks | Important/ interesting books for developers |[https://tinyurl.com/y2ft4769](https://tinyurl.com/y2ft4769) |
