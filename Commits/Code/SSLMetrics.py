@@ -1,4 +1,4 @@
-import sys
+from sys import argv, exit
 from sqlite3 import Connection, Cursor
 
 import Commits.Code.DBConnection
@@ -8,34 +8,24 @@ from Commits.Code.TokenHandler import TokenHandler
 
 class SSLMetrics:
     def __init__(self) -> None:
-        self.args = sys.argv[1:]
-        self.githubURL = None
+
+        if len(argv) > 3:
+            exit("Too many arguements.")
+
+        try:
+            self.ghURL = argv[1]
+        except IndexError:
+            exit("No URL arguement.")
+
+        try:
+            self.ghPAToken = argv[2]
+        except IndexError:
+            exit("No GitHub Personal Access Token arguement")
+
         self.githubUser = None
         self.githubRepo = None
-        self.githubToken = None
-        self.githubTokenList = None
         self.dbCursor = None
         self.dbConnection = None
-        self.th = TokenHandler()
-
-    def parseArgs(self) -> None:
-
-        if len(self.args) > 2:
-            sys.exit("Too Many Args")
-        try:
-            self.githubURL = self.args[0]
-        except IndexError:
-            sys.exit("No URL Arg")
-        try:
-            self.githubToken = self.args[1]
-            self.th.write(token=self.githubToken)
-            self.githubTokenList = self.th.read()
-        except IndexError:
-            self.githubTokenList = self.th.read()
-            try:
-                self.githubToken = self.githubTokenList[0]
-            except IndexError:
-                pass
 
     def stripURL(self) -> None:
 
@@ -68,4 +58,4 @@ s = SSLMetrics()
 s.parseArgs()
 s.stripURL()
 s.launch()
-sys.exit(0)
+exit(0)
