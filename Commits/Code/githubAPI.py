@@ -1,118 +1,45 @@
-import sys
-from http.client import HTTPResponse
-from json import dumps, load
-from sqlite3 import Connection, Cursor
+from sys import exit
 from urllib.error import HTTPError
-from urllib.request import Request, urlopen
+import requests
 
 
 class GitHubAPI:
     def __init__(
         self,
-        username: str = None,
-        repository: str = None,
-        token: str = None,
-        tokenList: list = None,
+        ghUser: str = None,
+        ghRepo: str = None,
+        ghPAToken: str = None,
     ):
-        self.githubUser = username
-        self.githubRepo = repository
-        self.githubToken = token
-        self.githubTokenList = tokenList
-        self.githubAPIURL = None
-        self.responseHeaders = None
+        self.githubUser = ghUser
+        self.githubRepo = ghRepo
+        self.githubToken = {"Authorization": "token " + ghPAToken}
+        self.responseHeaders = {}
 
-    def access_GitHubRepoCommits(self) -> dict:
-        return self.access_GitHubAPISpecificEndpoint(endpoint="/commits?state=all")
-
-    def access_GitHubRepoIssues(self) -> dict:
-        return self.access_GitHubAPISpecificEndpoint(endpoint="/issues?state=all")
-
-    def access_GitHubRepoPulls(self) -> dict:
-        return self.access_GitHubAPISpecificEndpoint(endpoint="/pulls?state=all")
-
-    def build_RequestObj(self, url: str = None) -> Request:
-        foo = Request(url=url)
-        if self.githubToken != None:
-            bar = "token " + self.githubToken
-            foo.add_header("Authorization", bar)
-        return foo
-
-    def access_GitHubAPISpecificEndpoint(self, endpoint: str = "") -> dict:
-        self.githubAPIURL = (
+    def accessGHEndpoint(self, ghEndpoint: str = "/") -> dict:
+        ghAPIURL = (
             "https://api.github.com/repos/"
             + self.githubUser
             + "/"
             + self.githubRepo
-            + endpoint
-        )
-        request = self.build_RequestObj(url=self.githubAPIURL)
-        try:
-            foo = urlopen(url=request)
-        except HTTPError as error:
-            try:
-                bar = self.githubTokenList.index(self.githubToken)
-                self.set_GitHubToken(self.githubTokenList[bar + 1])
-                print("Switching token to: " + self.githubToken)
-                self.access_GitHubAPISpecificEndpoint(endpoint=endpoint)
-            except IndexError:
-                print("Unable to utilize next token: IndexError")
-                sys.exit(error)
-            except ValueError:
-                print("Unable to utilize next token: ValueError")
-                sys.exit(error)
-        self.set_ResponseHeaders(response=foo)
-        return load(foo)
-
-    def access_GitHubAPISpecificURL(self, url: str = None) -> dict:
-        self.githubAPIURL = url
-        request = self.build_RequestObj(url=self.githubAPIURL)
-        try:
-            foo = urlopen(url=request)
-        except HTTPError as error:
-            try:
-                bar = self.githubTokenList.index(self.githubToken)
-                self.set_GitHubToken(self.githubTokenList[bar + 1])
-                print("Switching token to", self.githubTokenList[bar + 1])
-                self.access_GitHubAPISpecificEndpoint(url)
-            except IndexError:
-                print("Unable to utilize next token: IndexError")
-                sys.exit(error)
-            except ValueError:
-                print("Unable to utilize next token: ValueError")
-                sys.exit(error)
-        self.set_ResponseHeaders(response=foo)
-        return load(foo)
-
-    def get_GitHubToken(self) -> str:
-        return self.githubToken
-
-    def get_GitHubUser(self) -> str:
-        return self.githubUser
-
-    def get_GitHubRepo(self) -> str:
-        return self.githubRepo
-
-    def get_GitHubAPIURL(self) -> str:
-        return self.githubAPIURL
-
-    def get_ResponseHeaders(self) -> dict:
-        return self.responseHeaders
-
-    def set_GitHubUser(self, username: str = None) -> None:
-        self.githubUser = username
-
-    def set_GitHubRepo(self, repository: str = None) -> None:
-        self.githubRepo = repository
-
-    def set_GitHubAPIURL(self, username: str = None, repository: str = None) -> None:
-        self.set_GitHubUser(username=username)
-        self.set_GitHubRepo(repository=repository)
-        self.githubAPIURL = (
-            "https://api.github.com/repos/" + self.githubUser + "/" + self.githubRepo
+            + ghEndpoint
         )
 
-    def set_GitHubToken(self, token: str = None) -> None:
-        self.githubToken = token
+        try:
+            response = requests.get(url=ghAPIURL, headers=self.githubToken)
+        except HTTPError as error:
+            print("Unable to utilize token.\n" + error)
+            exit(1)
+        self.set_ResponseHeaders(response=response.headers)
+        return response.json()
 
-    def set_ResponseHeaders(self, response: HTTPResponse) -> None:
-        self.responseHeaders = dict(response.getheaders())
+    def accessGHURL(self, ghURL: str = None) -> dict:
+        try:
+            response = requests.get(url=ghURL, headers=self.githubToken)
+        except HTTPError as error:
+            print("Unable to utilize token.\n" + error)
+            exit(1)
+        self.set_ResponseHeaders(response=response.headers)
+        return response.json()
+
+    def set_ResponseHeaders(self, response: dict) -> None:
+        self.responseHeaders = response
