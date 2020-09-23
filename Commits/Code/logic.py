@@ -23,7 +23,6 @@ class Logic:
         self.connection = connection
 
         self.data = None
-        self.gh_REST_API = None
 
     def program(self) -> None:
 
@@ -86,22 +85,7 @@ class Logic:
                 gh_REST_API.access_GitHubRepoCommits(),
                 gh_REST_API.get_ResponseHeaders(),
             ]
-        elif endpoint == "issues":
-            self.data = [
-                gh_REST_API.access_GitHubRepoIssues(),
-                gh_REST_API.get_ResponseHeaders(),
-            ]
-        elif endpoint == "pulls":
-            self.data = [
-                gh_REST_API.access_GitHubRepoPulls(),
-                gh_REST_API.get_ResponseHeaders(),
-            ]
         elif endpoint == "":
-            self.data = [
-                gh_REST_API.access_GitHubAPISpecificEndpoint(endpoint=endpoint),
-                gh_REST_API.get_ResponseHeaders(),
-            ]
-        elif endpoint[0] == "/":
             self.data = [
                 gh_REST_API.access_GitHubAPISpecificEndpoint(endpoint=endpoint),
                 gh_REST_API.get_ResponseHeaders(),
