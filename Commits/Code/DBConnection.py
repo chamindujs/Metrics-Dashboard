@@ -42,12 +42,10 @@ class DBConnection:
 
     def dbCreateTable(self, dbConnection: tuple, sql: str, commit: bool = False):
 
-        connection, cursor = dbConnection
-
-        cursor.execute(sql)
+        dbConnection[1].execute(sql)
 
         if commit:
-            connection.commit()
+            dbConnection[0].commit()
 
 
 # cursor.execute(
