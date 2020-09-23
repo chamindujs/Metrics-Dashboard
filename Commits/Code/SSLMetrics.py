@@ -92,42 +92,6 @@ class SSLMetrics:
             connection=self.dbConnection,
         ).program()
 
-    def get_Args(self) -> list:
-        """
-        Returns the class variable args.
-        """
-        return self.args
-
-    def get_GitHubURL(self) -> str:
-        """
-        Returns the class variable githubURL.
-        """
-        return self.githubURL
-
-    def get_GitHubUser(self) -> str:
-        """
-        Returns the class variable githubUser
-        """
-        return self.githubUser
-
-    def get_GitHubRepo(self) -> str:
-        """
-        Returns the class variable githubRepo.
-        """
-        return self.githubRepo
-
-    def get_DbCursor(self) -> Cursor:
-        """
-        Returns the class variable dbCursor.
-        """
-        return self.dbCursor
-
-    def get_DbConnection(self) -> Connection:
-        """
-        Returns the class variable dbConnection.
-        """
-        return self.dbConnection
-
 
 s = SSLMetrics()
 s.parseArgs()
