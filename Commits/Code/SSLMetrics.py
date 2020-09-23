@@ -1,9 +1,9 @@
 from sys import argv, exit
 from sqlite3 import Connection, Cursor
 
-from DBConnection import DBConnection
-from Main import Logic
-from TokenHandler import TokenHandler
+from .db_connection import DBConnection
+from .logic import Logic
+from .token_handler import TokenHandler
 
 
 class SSLMetrics:

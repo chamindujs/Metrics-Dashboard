@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta
 from sqlite3 import Connection, Cursor
 
-import Commits
-from GitHub_REST_API import GitHub_REST_API
+from .commits import Commits
+from .github_REST_API import GitHub_REST_API
 
 
 class Logic:
