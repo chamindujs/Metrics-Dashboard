@@ -5,10 +5,6 @@ from githubAPI import GitHubAPI
 
 
 class Logic:
-    """
-    This class contains the methods needed to access the GitHub Repository Commits API as well as any class specific variables.
-    """
-
     def __init__(
         self,
         gha: GitHubAPI = None,
@@ -17,14 +13,6 @@ class Logic:
         cursor: Cursor = None,
         connection: Connection = None,
     ):
-        """
-        This initializes the class and sets class variables specific variables.\n
-        :param gha: An instance of the GitHubAPI class.\n
-        :param data: The dictionary of data that is returned from the API call.\n
-        :param responseHeaders: The dictionary of data that is returned with the API call.\n
-        :param cursor: The database cursor.\n
-        :param connection: The database connection.
-        """
         self.gha = gha
         self.data = data
         self.responseHeaders = responseHeaders
@@ -32,18 +20,15 @@ class Logic:
         self.dbConnection = connection
 
     def parser(self) -> None:
-        """
-        Actually scrapes, sanitizes, and stores the data returned from the API call.
-        """
         while True:
             for x in range(len(self.data)):
-                # Values below are the values that are to be returned/set if parsing FAILS
+
                 author = "NA"
                 author_date = "NA"
                 committer = "NA"
                 committer_date = "NA"
-                message = "NA"  # Message associated with the commit
-                comment_count = "NA"  # Number of comments per commit
+                message = "NA"
+                comment_count = "NA"
                 commits_url = "NA"
                 comments_url = "NA"
 
@@ -89,7 +74,6 @@ class Logic:
                 except AttributeError:
                     pass
 
-                # Scrapes and sanitizes the time related data
                 try:
                     author_date = (
                         self.data[x]["commit"]["author"]["date"]
@@ -116,7 +100,6 @@ class Logic:
                 except AttributeError:
                     pass
 
-                # Stores the data into a SQL database
                 sql = "INSERT INTO COMMITS (author, author_date, committer, committer_date, commits_url, message, comment_count, comments_url) VALUES (?,?,?,?,?,?,?,?);"
                 self.dbCursor.execute(
                     sql,
@@ -133,12 +116,9 @@ class Logic:
                 )
                 self.dbConnection.commit()
 
-            # Below checks to see if there are any links related to the data returned
             try:
                 foo = self.responseHeaders["Link"]
-                if (
-                    'rel="next"' not in foo
-                ):  # Breaks if there is no rel="next" text in key Link
+                if 'rel="next"' not in foo:
                     break
 
                 else:
@@ -149,8 +129,8 @@ class Logic:
                             url = x[x.find("<") + 1 : x.find(">")]
                             self.data = self.gha.access_GitHubAPISpecificURL(url=url)
                             self.responseHeaders = self.gha.get_ResponseHeaders()
-                            self.parser()  # Recursive
-            except KeyError:  # Raises if there is no key Link
+                            self.parser()
+            except KeyError:
                 print(self.responseHeaders)
                 break
             break
