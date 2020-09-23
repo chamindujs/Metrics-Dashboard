@@ -13,7 +13,6 @@ class GitHubAPI:
         self.githubUser = ghUser
         self.githubRepo = ghRepo
         self.githubToken = {"Authorization": "token " + ghPAToken}
-        self.responseHeaders = {}
 
     def accessGHEndpoint(self, ghEndpoint: str = "/") -> dict:
         ghAPIURL = (
@@ -29,17 +28,16 @@ class GitHubAPI:
         except HTTPError as error:
             print("Unable to utilize token.\n" + error)
             exit(1)
-        self.set_ResponseHeaders(response=response.headers)
-        return response.json()
+        keptResponse = response
+        response.close()
+        return keptResponse
 
-    def accessGHURL(self, ghURL: str = None) -> dict:
+    def accessGHURL(self, ghURL: str = "https://github.com/") -> dict:
         try:
             response = requests.get(url=ghURL, headers=self.githubToken)
         except HTTPError as error:
             print("Unable to utilize token.\n" + error)
             exit(1)
-        self.set_ResponseHeaders(response=response.headers)
-        return response.json()
-
-    def set_ResponseHeaders(self, response: dict) -> None:
-        self.responseHeaders = response
+        keptResponse = response
+        response.close()
+        return keptResponse
