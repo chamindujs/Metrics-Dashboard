@@ -1,5 +1,5 @@
 import os
-from sqlite3 import connect, Cursor
+from sqlite3 import Cursor, connect
 from time import time
 
 

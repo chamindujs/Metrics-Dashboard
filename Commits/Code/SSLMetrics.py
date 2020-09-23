@@ -1,9 +1,9 @@
 import sys
-from sqlite3 import Connection, Cursor  # Need these for determining type
+from sqlite3 import Connection, Cursor
 
-import Master
-import sqlite_database
-from TokenHandler import TokenHandler
+import Commits.Code.DBConnection
+import Commits.Code.Main
+from Commits.Code.TokenHandler import TokenHandler
 
 
 class SSLMetrics:
