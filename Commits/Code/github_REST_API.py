@@ -14,17 +14,17 @@ class GitHub_REST_API:
         self.ghRepo = ghRepo
         self.ghPAToken = {"Authorization": "token " + ghPAToken}
 
-    def accessGHEndpoint(self, ghEndpoint: str = "/") -> requests.Response:
+    def accessGHEndpoint(self, gh_REST_Endpoint: str = "/") -> requests.Response:
         ghAPIURL = (
             "https://api.github.com/repos/"
             + self.ghUser
             + "/"
             + self.ghRepo
-            + ghEndpoint
+            + gh_REST_Endpoint
         )
 
         try:
-            response = requests.get(url=ghAPIURL, headers=self.githubToken)
+            response = requests.get(url=ghAPIURL, headers=self.ghPAToken)
         except Exception as error:
             print("Unable to utilize token.\n" + error)
             exit(1)
@@ -34,7 +34,7 @@ class GitHub_REST_API:
 
     def accessGHURL(self, ghURL: str = "https://github.com/") -> requests.Response:
         try:
-            response = requests.get(url=ghURL, headers=self.githubToken)
+            response = requests.get(url=ghURL, headers=self.ghPAToken)
         except Exception as error:
             print("Unable to utilize token.\n" + error)
             exit(1)

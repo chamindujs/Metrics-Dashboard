@@ -11,9 +11,6 @@ class SSLMetrics:
 
         argvAmount = len(argv)
 
-        if argvAmount > 2:
-            exit("No GitHub Personal Access Token arguement.")
-
         if argvAmount > 3:
             exit("Too many arguements.")
 
@@ -36,11 +33,11 @@ class SSLMetrics:
         connection, cursor = DBConnection(ghRepo=self.splitGHURL[-1]).dbConnect()
 
         Logic(
-            username=self.splitGHURL[-2],
-            repository=self.splitGHURL[-1],
-            token=argv[2],
-            cursor=cursor,
+            ghUser=self.splitGHURL[-2],
+            ghRepo=self.splitGHURL[-1],
+            ghPAToken=argv[2],
             connection=connection,
+            cursor=cursor,
         ).program()
 
 

@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from sqlite3 import Connection, Cursor
+from sys import exit
 
 from commits import Commits
 from github_REST_API import GitHub_REST_API
@@ -15,15 +16,27 @@ class Logic:
         cursor: Cursor = None,
     ) -> None:
 
+        try:
+            if ghUser is None:
+                raise ValueError
+            if ghRepo is None:
+                raise ValueError
+            if ghPAToken is None:
+                raise ValueError
+            if connection is None:
+                raise ValueError
+            if cursor is None:
+                raise ValueError
+
+        except ValueError:
+            exit("Insufficent arguements passed into logic.py")
+
         self.githubUser = ghUser
         self.githubRepo = ghRepo
         self.githubToken = ghPAToken
 
         self.cursor = cursor
         self.connection = connection
-
-        self.data = None
-        self.gh_REST_API = None
 
     def program(self) -> None:
 
@@ -77,21 +90,20 @@ class Logic:
     def set_Data(self, endpoint: str = "/") -> None:
         endpoint = endpoint.lower()
         self.gh_REST_API = GitHub_REST_API(
-            username=self.githubUser,
-            repository=self.githubRepo,
-            token=self.githubToken,
+            ghUser=self.githubUser,
+            ghRepo=self.githubRepo,
+            ghPAToken=self.githubToken,
         )
-        if endpoint == "commits":
-            self.data = [
-                gh_REST_API.access_GitHubRepoCommits(),
-                gh_REST_API.get_ResponseHeaders(),
-            ]
+        self.data = self.__accessGHEndpoint__(
+            gh_REST_API=self.gh_REST_API, gh_REST_Endpoint=endpoint
+        )
 
-        if endpoint == "":
-            self.data = [
-                gh_REST_API.access_GitHubAPISpecificEndpoint(endpoint=endpoint),
-                gh_REST_API.get_ResponseHeaders(),
-            ]
+    def __accessGHEndpoint__(
+        self, gh_REST_API: GitHub_REST_API, gh_REST_Endpoint
+    ) -> tuple:
+        ghResponse = gh_REST_API.accessGHEndpoint(gh_REST_Endpoint)
+
+        return (ghResponse.json(), ghResponse.headers)
 
 
 if __name__ == "__main__":
