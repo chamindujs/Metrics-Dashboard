@@ -1,10 +1,10 @@
 from datetime import datetime
 from sqlite3 import Connection, Cursor
 
-from .github_REST_API import GitHub_REST_API
+from github_REST_API import GitHub_REST_API
 
 
-class Logic:
+class Commits:
     def __init__(
         self,
         ghAPI: GitHub_REST_API = None,
