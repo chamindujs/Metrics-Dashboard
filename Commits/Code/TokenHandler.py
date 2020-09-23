@@ -6,13 +6,11 @@ class TokenHandler:
         if os.path.isfile("tokens.txt"):
             pass
         else:
-            open(
-                "tokens.txt", "w"
-            ).close()
+            open("tokens.txt", "w").close()
 
     def write(self, token: str) -> None:
         with open("tokens.txt", "a+") as tokensFile:
-             tokensFile.write(token + "\n")
+            tokensFile.write(token + "\n")
             tokensFile.close()
 
     def read(self) -> list:

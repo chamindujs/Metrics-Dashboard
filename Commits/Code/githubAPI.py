@@ -10,16 +10,16 @@ class GitHub_REST_API:
         ghRepo: str = None,
         ghPAToken: str = None,
     ):
-        self.githubUser = ghUser
-        self.githubRepo = ghRepo
-        self.githubToken = {"Authorization": "token " + ghPAToken}
+        self.ghUser = ghUser
+        self.ghRepo = ghRepo
+        self.ghPAToken = {"Authorization": "token " + ghPAToken}
 
-    def accessGHEndpoint(self, ghEndpoint: str = "/") -> dict:
+    def accessGHEndpoint(self, ghEndpoint: str = "/") -> requests.Response:
         ghAPIURL = (
             "https://api.github.com/repos/"
-            + self.githubUser
+            + self.ghUser
             + "/"
-            + self.githubRepo
+            + self.ghRepo
             + ghEndpoint
         )
 
@@ -32,7 +32,7 @@ class GitHub_REST_API:
         response.close()
         return keptResponse
 
-    def accessGHURL(self, ghURL: str = "https://github.com/") -> dict:
+    def accessGHURL(self, ghURL: str = "https://github.com/") -> requests.Response:
         try:
             response = requests.get(url=ghURL, headers=self.githubToken)
         except HTTPError as error:
