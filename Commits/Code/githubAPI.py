@@ -3,7 +3,7 @@ from urllib.error import HTTPError
 import requests
 
 
-class GitHubAPI:
+class GitHub_REST_API:
     def __init__(
         self,
         ghUser: str = None,
