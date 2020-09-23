@@ -1,5 +1,6 @@
 import os
 
+
 class TokenHandler:
 
     def __init__(self):

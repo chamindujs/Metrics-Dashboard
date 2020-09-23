@@ -1,9 +1,10 @@
-from json import load, dumps
-from http.client import HTTPResponse
-from urllib.request import urlopen, Request
-from urllib.error import HTTPError
-from sqlite3 import Cursor, Connection
 import sys
+from http.client import HTTPResponse
+from json import dumps, load
+from sqlite3 import Connection, Cursor
+from urllib.error import HTTPError
+from urllib.request import Request, urlopen
+
 
 class GitHubAPI:
     '''
