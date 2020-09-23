@@ -1,13 +1,13 @@
 from datetime import datetime
 from sqlite3 import Connection, Cursor
 
-from githubAPI import GitHubAPI
+from Commits.Code.GitHub_REST_API import GitHub_REST_API
 
 
 class Logic:
     def __init__(
         self,
-        ghAPI: GitHubAPI = None,
+        ghAPI: GitHub_REST_API = None,
         data: dict = None,
         responseHeaders: tuple = None,
         cursor: Cursor = None,

@@ -1,17 +1,12 @@
 from datetime import datetime, timedelta
 from sqlite3 import Connection, Cursor
 
-from githubAPI import GitHubAPI
+from Commits.Code.GitHub_REST_API import GitHub_REST_API
 
 import Commits
 
 
 class Logic:
-    """
-    This is logic to call all other classes and methods that make the program run.\n
-    Does very little analysis of data.
-    """
-
     def __init__(
         self,
         username: str = None,
