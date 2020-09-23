@@ -1,2 +1,1 @@
-from . import (Commits, DBConnection, Master, SSLMetrics, TokenHandler,
-               githubAPI)
+from . import Commits, DBConnection, Master, TokenHandler, githubAPI

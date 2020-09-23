@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from sqlite3 import Connection, Cursor
 
 import Commits
-from Commits.Code.GitHub_REST_API import GitHub_REST_API
+from GitHub_REST_API import GitHub_REST_API
 
 
 class Logic:

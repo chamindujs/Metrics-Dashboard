@@ -1,7 +1,7 @@
 from datetime import datetime
 from sqlite3 import Connection, Cursor
 
-from Commits.Code.GitHub_REST_API import GitHub_REST_API
+from GitHub_REST_API import GitHub_REST_API
 
 
 class Logic:
