@@ -23,6 +23,7 @@ class Logic:
         self.connection = connection
 
         self.data = None
+        self.gh_REST_API = None
 
     def program(self) -> None:
 
@@ -35,7 +36,7 @@ class Logic:
 
         self.set_Data(endpoint="commits")
         Commits.Logic(
-            gha=gh_REST_API,
+            gha=self.gh_REST_API,
             data=self.data[0],
             responseHeaders=self.data[1],
             cursor=self.cursor,
@@ -75,7 +76,7 @@ class Logic:
 
     def set_Data(self, endpoint: str = "/") -> None:
         endpoint = endpoint.lower()
-        gh_REST_API = GitHub_REST_API(
+        self.gh_REST_API = GitHub_REST_API(
             username=self.githubUser,
             repository=self.githubRepo,
             token=self.githubToken,
@@ -85,14 +86,10 @@ class Logic:
                 gh_REST_API.access_GitHubRepoCommits(),
                 gh_REST_API.get_ResponseHeaders(),
             ]
-        elif endpoint == "":
+
+        if endpoint == "":
             self.data = [
                 gh_REST_API.access_GitHubAPISpecificEndpoint(endpoint=endpoint),
-                gh_REST_API.get_ResponseHeaders(),
-            ]
-        else:
-            self.data = [
-                gh_REST_API.access_GitHubAPISpecificURL(url=endpoint),
                 gh_REST_API.get_ResponseHeaders(),
             ]
 
