@@ -15,7 +15,10 @@ class SSLMetrics:
         try:
             if argv[1].find("github.com/") == -1:
                 raise LookupError
-            if len(argv[1].split("/")) > 5:
+
+            self.splitGHURL = argv[1].split("/")
+
+            if len(self.splitGHURL) > 5:
                 raise LookupError
         except IndexError:
             exit("No GitHub URL arguement.")
@@ -27,25 +30,14 @@ class SSLMetrics:
         except IndexError:
             exit("No GitHub Personal Access Token arguement.")
 
-        self.githubUser = None
-        self.githubRepo = None
-        self.dbCursor = None
-        self.dbConnection = None
-
-    def stripURL(self) -> None:
-
-        self.githubUser = foo[-2]
-        self.githubRepo = foo[-1]
-
     def launch(self) -> None:
         self.dbCursor, self.dbConnection = sqlite_database.open_connection(
             self.githubRepo
         )
         Master.Logic(
-            username=self.githubUser,
-            repository=self.githubRepo,
-            token=self.githubToken,
-            tokenList=self.githubTokenList,
+            username=self.splitGHURL[-2],
+            repository=self.splitGHURL[-1],
+            token=argv[2],
             cursor=self.dbCursor,
             connection=self.dbConnection,
         ).program()
