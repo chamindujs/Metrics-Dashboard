@@ -111,3 +111,9 @@ class Logic:
                 gh_REST_API.access_GitHubAPISpecificURL(url=endpoint),
                 gh_REST_API.get_ResponseHeaders(),
             ]
+
+
+if __name__ == "__main__":
+    exit("logic.py is meant to be imported as a module.")
+else:
+    pass
