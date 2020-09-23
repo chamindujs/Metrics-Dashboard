@@ -8,19 +8,22 @@ from github_REST_API import GitHub_REST_API
 class Logic:
     def __init__(
         self,
-        username: str = None,
-        repository: str = None,
-        token: str = None,
-        cursor: Cursor = None,
+        ghUser: str = None,
+        ghRepo: str = None,
+        ghPAToken: str = None,
         connection: Connection = None,
+        cursor: Cursor = None,
     ) -> None:
-        self.githubUser = username
-        self.githubRepo = repository
-        self.githubToken = token
-        self.dbCursor = cursor
-        self.dbConnection = connection
+
+        self.githubUser = ghUser
+        self.githubRepo = ghRepo
+        self.githubToken = ghPAToken
+
+        self.cursor = cursor
+        self.connection = connection
+
         self.data = None
-        self.gha = None
+        self.gh_REST_API = None
 
     def program(self) -> None:
 
@@ -33,11 +36,11 @@ class Logic:
 
         self.set_Data(endpoint="commits")
         Commits.Logic(
-            gha=self.gha,
+            gha=gh_REST_API,
             data=self.data[0],
             responseHeaders=self.data[1],
-            cursor=self.dbCursor,
-            connection=self.dbConnection,
+            cursor=self.cursor,
+            connection=self.connection,
         ).parser()
 
         for foo in datetimeList:
@@ -46,18 +49,18 @@ class Logic:
 
             date = str(date)
 
-            self.dbCursor.execute(
+            self.cursor.execute(
                 "SELECT COUNT(*) FROM COMMITS WHERE date(committer_date) <= date('"
                 + date
                 + "');"
             )
-            rows = self.dbCursor.fetchall()
+            rows = self.cursor.fetchall()
             commits = rows[0][0]
 
             sql = "INSERT INTO MASTER (date, commits) VALUES (?,?) ON CONFLICT(date) DO UPDATE SET commits = (?);"
-            self.dbCursor.execute(sql, (date, str(commits), str(commits)))
+            self.cursor.execute(sql, (date, str(commits), str(commits)))
 
-            self.dbConnection.commit()
+            self.connection.commit()
 
     def generate_DateTimeList(self, rCDT: datetime) -> list:
         foo = []
@@ -73,38 +76,38 @@ class Logic:
 
     def set_Data(self, endpoint: str = "/") -> None:
         endpoint = endpoint.lower()
-        self.gha = GitHub_REST_API(
+        gh_REST_API = GitHub_REST_API(
             username=self.githubUser,
             repository=self.githubRepo,
             token=self.githubToken,
         )
         if endpoint == "commits":
             self.data = [
-                self.gha.access_GitHubRepoCommits(),
-                self.gha.get_ResponseHeaders(),
+                gh_REST_API.access_GitHubRepoCommits(),
+                gh_REST_API.get_ResponseHeaders(),
             ]
         elif endpoint == "issues":
             self.data = [
-                self.gha.access_GitHubRepoIssues(),
-                self.gha.get_ResponseHeaders(),
+                gh_REST_API.access_GitHubRepoIssues(),
+                gh_REST_API.get_ResponseHeaders(),
             ]
         elif endpoint == "pulls":
             self.data = [
-                self.gha.access_GitHubRepoPulls(),
-                self.gha.get_ResponseHeaders(),
+                gh_REST_API.access_GitHubRepoPulls(),
+                gh_REST_API.get_ResponseHeaders(),
             ]
         elif endpoint == "":
             self.data = [
-                self.gha.access_GitHubAPISpecificEndpoint(endpoint=endpoint),
-                self.gha.get_ResponseHeaders(),
+                gh_REST_API.access_GitHubAPISpecificEndpoint(endpoint=endpoint),
+                gh_REST_API.get_ResponseHeaders(),
             ]
         elif endpoint[0] == "/":
             self.data = [
-                self.gha.access_GitHubAPISpecificEndpoint(endpoint=endpoint),
-                self.gha.get_ResponseHeaders(),
+                gh_REST_API.access_GitHubAPISpecificEndpoint(endpoint=endpoint),
+                gh_REST_API.get_ResponseHeaders(),
             ]
         else:
             self.data = [
-                self.gha.access_GitHubAPISpecificURL(url=endpoint),
-                self.gha.get_ResponseHeaders(),
+                gh_REST_API.access_GitHubAPISpecificURL(url=endpoint),
+                gh_REST_API.get_ResponseHeaders(),
             ]
