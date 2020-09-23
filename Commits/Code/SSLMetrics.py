@@ -1,7 +1,7 @@
 from sys import argv, exit
 from sqlite3 import Connection, Cursor
 
-import Commits.Code.DBConnection
+from Commits.Code.DBConnection import DBConnection
 import Commits.Code.Main
 from Commits.Code.TokenHandler import TokenHandler
 
@@ -32,10 +32,9 @@ class SSLMetrics:
         except LookupError:
             exit("Invalid GitHub URL arguement.")
 
-    def launch(self) -> None:
-        self.dbCursor, self.dbConnection = sqlite_database.open_connection(
-            self.githubRepo
-        )
+    def run(self) -> None:
+        connection, cursor = DBConnection(ghRepo=self.splitGHURL[-1]).dbConnect()
+
         Master.Logic(
             username=self.splitGHURL[-2],
             repository=self.splitGHURL[-1],

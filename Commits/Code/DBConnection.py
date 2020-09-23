@@ -42,8 +42,7 @@ class DBConnection:
 
     def dbCreateTable(self, dbConnection: tuple, sql: str, commit: bool = False):
 
-        connection = dbConnection[0]
-        cursor = dbConnection[1]
+        connection, cursor = dbConnection
 
         cursor.execute(sql)
 
