@@ -11,20 +11,20 @@ class TokenHandler:
             ).close()  # Gaurentees creation of tokens.txt if it is not created
 
     def write(self, token: str, mode: str = "a+") -> None:
-        keysfile = open("tokens.txt", mode)  # Opens file in appending mode
-        keysfile.writelines(token + "\n")
-        keysfile.close()
+        tokensFile = open("tokens.txt", mode)  # Opens file in appending mode
+        tokensFile.writelines(token + "\n")
+        tokensFile.close()
 
     def writelines(self, data: list = None, mode: str = "a+") -> None:
-        keysfile = open("tokens.txt", mode)
+        tokensFile = open("tokens.txt", mode)
         for item in data:
-            keysfile.write(item + "\n")
-        keysfile.close()
+            tokensFile.write(item + "\n")
+        tokensFile.close()
 
     def read(self) -> list:
-        keysfile = open("tokens.txt", "r")  # Opens the file in read mode
-        foo = keysfile.readlines()
-        keysfile.close()
+        tokensFile = open("tokens.txt", "r")  # Opens the file in read mode
+        foo = tokensFile.readlines()
+        tokensFile.close()
         return [x.replace("\n", "") for x in foo]
 
     def deleteValue(self, value: str = None) -> None:
