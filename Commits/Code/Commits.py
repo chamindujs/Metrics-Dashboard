@@ -7,13 +7,13 @@ from githubAPI import GitHubAPI
 class Logic:
     def __init__(
         self,
-        gha: GitHubAPI = None,
+        ghAPI: GitHubAPI = None,
         data: dict = None,
         responseHeaders: tuple = None,
         cursor: Cursor = None,
         connection: Connection = None,
     ):
-        self.gha = gha
+        self.ghAPI = ghAPI
         self.data = data
         self.responseHeaders = responseHeaders
         self.dbCursor = cursor
@@ -127,8 +127,8 @@ class Logic:
                     for x in bar:
                         if 'rel="next"' in x:
                             url = x[x.find("<") + 1 : x.find(">")]
-                            self.data = self.gha.access_GitHubAPISpecificURL(url=url)
-                            self.responseHeaders = self.gha.get_ResponseHeaders()
+                            self.data = self.ghAPI.access_GitHubAPISpecificURL(url=url)
+                            self.responseHeaders = self.ghAPI.get_ResponseHeaders()
                             self.parser()
             except KeyError:
                 print(self.responseHeaders)
