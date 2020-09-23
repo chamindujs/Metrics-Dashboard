@@ -11,14 +11,12 @@ class Logic:
         username: str = None,
         repository: str = None,
         token: str = None,
-        tokenList: list = None,
         cursor: Cursor = None,
         connection: Connection = None,
     ) -> None:
         self.githubUser = username
         self.githubRepo = repository
         self.githubToken = token
-        self.githubTokenList = tokenList
         self.dbCursor = cursor
         self.dbConnection = connection
         self.data = None
@@ -79,7 +77,6 @@ class Logic:
             username=self.githubUser,
             repository=self.githubRepo,
             token=self.githubToken,
-            tokenList=self.githubTokenList,
         )
         if endpoint == "commits":
             self.data = [
