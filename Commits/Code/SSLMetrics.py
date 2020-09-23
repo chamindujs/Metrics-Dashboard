@@ -13,14 +13,19 @@ class SSLMetrics:
             exit("Too many arguements.")
 
         try:
-            self.ghURL = argv[1]
+            if argv[1].find("github.com/") == -1:
+                raise LookupError
+            if len(argv[1].split("/")) > 5:
+                raise LookupError
         except IndexError:
-            exit("No URL arguement.")
+            exit("No GitHub URL arguement.")
+        except LookupError:
+            exit("Invalid GitHub URL arguement.")
 
         try:
-            self.ghPAToken = argv[2]
+            argv[2]
         except IndexError:
-            exit("No GitHub Personal Access Token arguement")
+            exit("No GitHub Personal Access Token arguement.")
 
         self.githubUser = None
         self.githubRepo = None
@@ -28,14 +33,6 @@ class SSLMetrics:
         self.dbConnection = None
 
     def stripURL(self) -> None:
-
-        if self.githubURL.find("github.com/") == -1:
-            sys.exit("Invalid URL Arg")
-
-        foo = self.githubURL.split("/")
-
-        if len(foo) > 5:
-            sys.exit("Invalid URL Arg")
 
         self.githubUser = foo[-2]
         self.githubRepo = foo[-1]
