@@ -2,7 +2,7 @@ from sys import argv, exit
 from sqlite3 import Connection, Cursor
 
 from Commits.Code.DBConnection import DBConnection
-import Commits.Code.Main
+from Commits.Code.Main import Logic
 from Commits.Code.TokenHandler import TokenHandler
 
 
@@ -35,17 +35,16 @@ class SSLMetrics:
     def run(self) -> None:
         connection, cursor = DBConnection(ghRepo=self.splitGHURL[-1]).dbConnect()
 
-        Master.Logic(
+        Logic(
             username=self.splitGHURL[-2],
             repository=self.splitGHURL[-1],
             token=argv[2],
-            cursor=self.dbCursor,
-            connection=self.dbConnection,
+            cursor=cursor,
+            connection=connection,
         ).program()
 
 
-s = SSLMetrics()
-s.parseArgs()
-s.stripURL()
-s.launch()
-exit(0)
+if __name__ == "__main__":
+    SSLMetrics().run()
+else:
+    exit("SSLMetrics.py is meant to be ran as a standalone script.")
