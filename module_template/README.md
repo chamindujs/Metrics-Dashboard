@@ -1,3 +1,17 @@
+# Module Template
+
+## A Template Module to Demonstrate and Display Development and Style Guides for Metrics Dashboard
+
+### Who is Responsible for Creating the Metric Abstract?
+
+### What Does this Metric Accomplish?
+
+### What Does this Module Do?
+
+### How to Use This Module
+
+### How to Develop This Module Further
+
 ## Module Development
 ### How to use the module template
 First, create a folder for your module (following the file structure of this template, `module_template` would be that folder). Then, create another folder called `code` within that folder. Inside the `code` folder, place all of your Python code for your module. For each library you import, add it to a file called `requirements.txt` within the `code` folder. Lastly, copy the `Dockerfile` from this template into the folder of the module itself.
